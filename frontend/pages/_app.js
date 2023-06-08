@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
+  console.log(process.env);
   return (
     <div>
       <Head>
@@ -12,7 +13,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="NFT Marketplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MoralisProvider initializeOnMount={false}>
+      <MoralisProvider appId="97dd265e-774c-4024-9431-e93795def231">
         <NotificationProvider>
           <Header />
           <Component {...pageProps} />
