@@ -15,7 +15,7 @@ export const Header = () => {
           <a className="mr-4 p-3 text-xl text-white font-bold">Sell NFT</a>
         </Link>
         <div className="ml-auto py-2 px-4">
-          <ConnectButton moralisAuth={false} />
+          <ConnectButton />
         </div>
       </div>
     </nav>

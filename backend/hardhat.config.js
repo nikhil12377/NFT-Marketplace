@@ -43,9 +43,9 @@ module.exports = {
   networks: {
     hardhat: {
       chainID: 31337,
-      forking: {
-        url: process.env.MAINNET_RPC_PROVIDER,
-      },
+      // forking: {
+      //   url: process.env.MAINNET_RPC_PROVIDER,
+      // },
       blockConfirmations: 1,
     },
     goerli: {

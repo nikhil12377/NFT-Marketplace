@@ -29,7 +29,7 @@ const { developmentChains } = require("../../helper-hardhat.config");
       });
 
       it("Lists and can be bought", async () => {
-        NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
         await playerConnectedNftMarketplace.buyItem(
           BasicNft.address,
           TOKEN_ID,
@@ -42,7 +42,7 @@ const { developmentChains } = require("../../helper-hardhat.config");
       });
 
       it("Cancels item", async () => {
-        NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
         const itemBeforeCancel = await NftMarketplace.getListing(
           BasicNft.address,
           TOKEN_ID
@@ -57,7 +57,7 @@ const { developmentChains } = require("../../helper-hardhat.config");
       });
 
       it("Updates the price of the NFT in the Marketplace", async () => {
-        NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
         const newPrice = ethers.utils.parseEther("0.2");
         await NftMarketplace.updateListing(
           BasicNft.address,
@@ -73,7 +73,7 @@ const { developmentChains } = require("../../helper-hardhat.config");
       });
 
       it("Withdraw proceeds", async () => {
-        NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
         await playerConnectedNftMarketplace.buyItem(
           BasicNft.address,
           TOKEN_ID,
@@ -85,5 +85,25 @@ const { developmentChains } = require("../../helper-hardhat.config");
 
         assert(proceeds.toString() != "0");
         assert(newProceeds.toString() == "0");
+      });
+
+      it("Already Listed Modifier", async () => {
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await expect(
+          NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE)
+        ).to.be.revertedWith("NftMaketplace__AlreadyListed");
+      });
+
+      it("Not Listed Modifier", async () => {
+        await expect(
+          NftMarketplace.cancelItem(BasicNft.address, TOKEN_ID)
+        ).to.be.revertedWith("NftMaketplace__NotListed");
+      });
+
+      it("Not Owner Modifier", async () => {
+        await NftMarketplace.listItem(BasicNft.address, TOKEN_ID, PRICE);
+        await expect(
+          playerConnectedNftMarketplace.cancelItem(BasicNft.address, TOKEN_ID)
+        ).to.be.revertedWith("NftMaketplace__NotOwner");
       });
     });
