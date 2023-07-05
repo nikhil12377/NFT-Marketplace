@@ -96,7 +96,7 @@ export class ItemListed__Params {
   }
 }
 
-export class NftMarketplace__getListingResultValue0Struct extends ethereum.Tuple {
+export class NftMarketPlace__getListingResultValue0Struct extends ethereum.Tuple {
   get price(): BigInt {
     return this[0].toBigInt();
   }
@@ -106,15 +106,15 @@ export class NftMarketplace__getListingResultValue0Struct extends ethereum.Tuple
   }
 }
 
-export class NftMarketplace extends ethereum.SmartContract {
-  static bind(address: Address): NftMarketplace {
-    return new NftMarketplace("NftMarketplace", address);
+export class NftMarketPlace extends ethereum.SmartContract {
+  static bind(address: Address): NftMarketPlace {
+    return new NftMarketPlace("NftMarketPlace", address);
   }
 
   getListing(
     nftAddress: Address,
     tokenId: BigInt
-  ): NftMarketplace__getListingResultValue0Struct {
+  ): NftMarketPlace__getListingResultValue0Struct {
     let result = super.call(
       "getListing",
       "getListing(address,uint256):((uint256,address))",
@@ -124,7 +124,7 @@ export class NftMarketplace extends ethereum.SmartContract {
       ]
     );
 
-    return changetype<NftMarketplace__getListingResultValue0Struct>(
+    return changetype<NftMarketPlace__getListingResultValue0Struct>(
       result[0].toTuple()
     );
   }
@@ -132,7 +132,7 @@ export class NftMarketplace extends ethereum.SmartContract {
   try_getListing(
     nftAddress: Address,
     tokenId: BigInt
-  ): ethereum.CallResult<NftMarketplace__getListingResultValue0Struct> {
+  ): ethereum.CallResult<NftMarketPlace__getListingResultValue0Struct> {
     let result = super.tryCall(
       "getListing",
       "getListing(address,uint256):((uint256,address))",
@@ -146,7 +146,7 @@ export class NftMarketplace extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      changetype<NftMarketplace__getListingResultValue0Struct>(
+      changetype<NftMarketPlace__getListingResultValue0Struct>(
         value[0].toTuple()
       )
     );

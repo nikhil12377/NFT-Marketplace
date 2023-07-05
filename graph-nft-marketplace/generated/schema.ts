@@ -102,21 +102,25 @@ export class ActiveItem extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get price(): BigInt {
+  get price(): BigInt | null {
     let value = this.get("price");
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+      return null;
     } else {
       return value.toBigInt();
     }
   }
 
-  set price(value: BigInt) {
-    this.set("price", Value.fromBigInt(value));
+  set price(value: BigInt | null) {
+    if (!value) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(<BigInt>value));
+    }
   }
 }
 
-export class ItemBought extends Entity {
+export class ItemListed extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -124,22 +128,22 @@ export class ItemBought extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save ItemBought entity without an ID");
+    assert(id != null, "Cannot save ItemListed entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type ItemBought must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type ItemListed must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("ItemBought", id.toString(), this);
+      store.set("ItemListed", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): ItemBought | null {
-    return changetype<ItemBought | null>(store.get_in_block("ItemBought", id));
+  static loadInBlock(id: string): ItemListed | null {
+    return changetype<ItemListed | null>(store.get_in_block("ItemListed", id));
   }
 
-  static load(id: string): ItemBought | null {
-    return changetype<ItemBought | null>(store.get("ItemBought", id));
+  static load(id: string): ItemListed | null {
+    return changetype<ItemListed | null>(store.get("ItemListed", id));
   }
 
   get id(): string {
@@ -155,8 +159,8 @@ export class ItemBought extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get buyer(): Bytes {
-    let value = this.get("buyer");
+  get seller(): Bytes {
+    let value = this.get("seller");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -164,8 +168,8 @@ export class ItemBought extends Entity {
     }
   }
 
-  set buyer(value: Bytes) {
-    this.set("buyer", Value.fromBytes(value));
+  set seller(value: Bytes) {
+    this.set("seller", Value.fromBytes(value));
   }
 
   get nftAddress(): Bytes {
@@ -194,17 +198,21 @@ export class ItemBought extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get price(): BigInt {
+  get price(): BigInt | null {
     let value = this.get("price");
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+      return null;
     } else {
       return value.toBigInt();
     }
   }
 
-  set price(value: BigInt) {
-    this.set("price", Value.fromBigInt(value));
+  set price(value: BigInt | null) {
+    if (!value) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(<BigInt>value));
+    }
   }
 }
 
@@ -289,7 +297,7 @@ export class ItemCanceled extends Entity {
   }
 }
 
-export class ItemListed extends Entity {
+export class ItemBought extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -297,22 +305,22 @@ export class ItemListed extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save ItemListed entity without an ID");
+    assert(id != null, "Cannot save ItemBought entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type ItemListed must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type ItemBought must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("ItemListed", id.toString(), this);
+      store.set("ItemBought", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): ItemListed | null {
-    return changetype<ItemListed | null>(store.get_in_block("ItemListed", id));
+  static loadInBlock(id: string): ItemBought | null {
+    return changetype<ItemBought | null>(store.get_in_block("ItemBought", id));
   }
 
-  static load(id: string): ItemListed | null {
-    return changetype<ItemListed | null>(store.get("ItemListed", id));
+  static load(id: string): ItemBought | null {
+    return changetype<ItemBought | null>(store.get("ItemBought", id));
   }
 
   get id(): string {
@@ -328,8 +336,8 @@ export class ItemListed extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get seller(): Bytes {
-    let value = this.get("seller");
+  get buyer(): Bytes {
+    let value = this.get("buyer");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -337,8 +345,8 @@ export class ItemListed extends Entity {
     }
   }
 
-  set seller(value: Bytes) {
-    this.set("seller", Value.fromBytes(value));
+  set buyer(value: Bytes) {
+    this.set("buyer", Value.fromBytes(value));
   }
 
   get nftAddress(): Bytes {
@@ -367,16 +375,20 @@ export class ItemListed extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get price(): BigInt {
+  get price(): BigInt | null {
     let value = this.get("price");
     if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
+      return null;
     } else {
       return value.toBigInt();
     }
   }
 
-  set price(value: BigInt) {
-    this.set("price", Value.fromBigInt(value));
+  set price(value: BigInt | null) {
+    if (!value) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(<BigInt>value));
+    }
   }
 }

@@ -60,6 +60,11 @@ module.exports = {
     currency: "USD",
     token: "ETH",
   },
+  etherscan: {
+    apiKey: {
+      goerli: process.env.ETHERSCAN_API_KEY,
+    },
+  },
   namedAccounts: {
     deployer: {
       default: 0,

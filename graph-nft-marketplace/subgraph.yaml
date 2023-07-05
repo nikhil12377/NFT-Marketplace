@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: NftMarketplace
+    name: NftMarketPlace
     network: goerli
     source:
       address: "0xC043FDAEa1598F8a40f2209BCEcf518033f2Ef09"
-      abi: NftMarketplace
+      abi: NftMarketPlace
       startBlock: 9176800
     mapping:
       kind: ethereum/events
@@ -18,8 +18,8 @@ dataSources:
         - ItemCanceled
         - ItemListed
       abis:
-        - name: NftMarketplace
-          file: ./abis/NftMarketplace.json
+        - name: NftMarketPlace
+          file: ./abis/NftMarketPlace.json
       eventHandlers:
         - event: ItemBought(indexed address,indexed address,indexed uint256,uint256)
           handler: handleItemBought
@@ -27,4 +27,4 @@ dataSources:
           handler: handleItemCanceled
         - event: ItemListed(indexed address,indexed address,indexed uint256,uint256)
           handler: handleItemListed
-      file: ./src/nft-marketplace.ts
+      file: ./src/nft-market-place.ts

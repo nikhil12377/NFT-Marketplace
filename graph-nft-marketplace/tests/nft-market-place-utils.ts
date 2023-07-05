@@ -4,7 +4,7 @@ import {
   ItemBought,
   ItemCanceled,
   ItemListed
-} from "../generated/NftMarketplace/NftMarketplace"
+} from "../generated/NftMarketPlace/NftMarketPlace"
 
 export function createItemBoughtEvent(
   buyer: Address,

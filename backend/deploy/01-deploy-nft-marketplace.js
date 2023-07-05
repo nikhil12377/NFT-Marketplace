@@ -32,7 +32,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   ) {
     try {
       log("Verifying...");
-      verify(nftMarketplace.address, args);
+      await verify(nftMarketplace.address, args);
       log("Verified!");
     } catch (error) {
       log(error);

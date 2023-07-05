@@ -25,7 +25,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   ) {
     try {
       log("Verifying...");
-      verify(basicNft.address, args);
+      await verify(basicNft.address, args);
       log("Verified!");
     } catch (error) {
       log(error);
